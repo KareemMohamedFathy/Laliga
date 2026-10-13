@@ -29,7 +29,7 @@ class LaligaApplicationTests {
     @Autowired
     private ObjectMapper objectMapper;
     @Test
-	void shouldReturnTeams()  throws Exception {
+	void shouldReturnTeams()  {
       ResponseEntity<String> responseEntity= restTemplate.getForEntity(
                 "/teams?page=0&size=5",
                 String.class
@@ -96,7 +96,7 @@ class LaligaApplicationTests {
         );
     }
     @Test
-    void shouldReturnMatches()  throws Exception {
+    void shouldReturnMatches()  {
         ResponseEntity<String> responseEntity= restTemplate.getForEntity(
                 "/matches?page=0&size=5",
                 String.class
