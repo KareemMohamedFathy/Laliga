@@ -17,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         properties = {
-                "FOOTBALL_API_TOKEN=test-token",
-                "spring.datasource.password=",
+
                 "spring.jpa.hibernate.ddl-auto=create-drop"
         }
 )

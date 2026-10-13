@@ -9,7 +9,7 @@ import org.springframework.web.client.RestClient;
 @Service
 public class FootballMatchesData {
     private final RestClient restClient;
-    public FootballMatchesData(RestClient.Builder clientBuilder, @Value("${FOOTBALL_API_TOKEN}") String apiToken) {
+    public FootballMatchesData(RestClient.Builder clientBuilder,@Value("${FOOTBALL_API_TOKEN:}") String apiToken) {
         this.restClient = clientBuilder.baseUrl("https://api.football-data.org")
                 .defaultHeader("X-Auth-Token", apiToken)
                 .build();
