@@ -158,6 +158,7 @@ public class CsvImportService {
                    match.setAwayRedCards(
                            Integer.parseInt(record.get("AR"))
                    );
+                   match.setSeason(2025);
 
                    matchRepository.save(match);
                }

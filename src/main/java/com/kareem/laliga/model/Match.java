@@ -2,6 +2,7 @@ package com.kareem.laliga.model;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -52,6 +53,9 @@ public class Match {
 
     private Integer homeRedCards;
     private Integer awayRedCards;
+    private Integer season;
+    private Long provider_match_id;
+    private Instant kickoff_utc;
     public Match() {
     }
 
@@ -237,5 +241,29 @@ public class Match {
 
     public void setAwayRedCards(Integer awayRedCards) {
         this.awayRedCards = awayRedCards;
+    }
+
+    public Long getProvider_match_id() {
+        return provider_match_id;
+    }
+
+    public void setProvider_match_id(Long provider_match_id) {
+        this.provider_match_id = provider_match_id;
+    }
+
+    public Integer getSeason() {
+        return season;
+    }
+
+    public void setSeason(Integer season) {
+        this.season = season;
+    }
+
+    public Instant getKickoff_utc() {
+        return kickoff_utc;
+    }
+
+    public void setKickoff_utc(Instant kickoff_utc) {
+        this.kickoff_utc = kickoff_utc;
     }
 }

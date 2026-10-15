@@ -1,7 +1,7 @@
 ALTER TABLE MATCHES
 ADD COLUMN  season integer,
 ADD COLUMN  provider_match_id bigint,
-ADD COLUMN  matchTime TIMESTAMP WITH TIME ZONE;
+ADD COLUMN  kickoff_utc TIMESTAMP WITH TIME ZONE;
 ALTER TABLE MATCHES
 ADD CONSTRAINT unique_id UNIQUE (provider_match_id);
 
