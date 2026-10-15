@@ -79,6 +79,7 @@ class LaligaApplicationTests {
         assertEquals("Oviedo",body.getAwayTeam().getName());
         assertEquals(2,body.getHomeGoals());
         assertEquals(0,body.getAwayGoals());
+        assertEquals(2025,body.getSeason());
 
     }
     @Test

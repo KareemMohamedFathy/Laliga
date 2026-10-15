@@ -54,8 +54,8 @@ public class Match {
     private Integer homeRedCards;
     private Integer awayRedCards;
     private Integer season;
-    private Long provider_match_id;
-    private Instant kickoff_utc;
+    private Long providerMatchId;
+    private Instant kickoffUtc;
     public Match() {
     }
 
@@ -243,13 +243,6 @@ public class Match {
         this.awayRedCards = awayRedCards;
     }
 
-    public Long getProvider_match_id() {
-        return provider_match_id;
-    }
-
-    public void setProvider_match_id(Long provider_match_id) {
-        this.provider_match_id = provider_match_id;
-    }
 
     public Integer getSeason() {
         return season;
@@ -259,11 +252,20 @@ public class Match {
         this.season = season;
     }
 
-    public Instant getKickoff_utc() {
-        return kickoff_utc;
+
+    public Long getProviderMatchId() {
+        return providerMatchId;
     }
 
-    public void setKickoff_utc(Instant kickoff_utc) {
-        this.kickoff_utc = kickoff_utc;
+    public Instant getKickoffUtc() {
+        return kickoffUtc;
+    }
+
+    public void setKickoffUtc(Instant kickoffUtc) {
+        this.kickoffUtc = kickoffUtc;
+    }
+
+    public void setProviderMatchId(Long providerMatchId) {
+        this.providerMatchId = providerMatchId;
     }
 }
