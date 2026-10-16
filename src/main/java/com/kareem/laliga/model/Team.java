@@ -10,6 +10,7 @@ public class Team{
     private long id;
     @Column(nullable = false,unique = true)
     private String name;
+    private long providerTeamId;
     public Team(String name) {
         this.name = name;
     }
@@ -26,5 +27,13 @@ public class Team{
         this.name = name;
     }
     public Team() {
+    }
+
+    public long getProviderTeamId() {
+        return providerTeamId;
+    }
+
+    public void setProviderTeamId(long providerTeamId) {
+        this.providerTeamId = providerTeamId;
     }
 }

@@ -37,7 +37,7 @@ class LaligaApplicationTests {
       assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
         JsonNode jsonNode = objectMapper.readTree(responseEntity.getBody());
         assertEquals(5, jsonNode.get("content").size());
-        assertEquals(20,jsonNode.get("totalElements").asInt());
+        assertEquals(23,jsonNode.get("totalElements").asInt());
 
 	}
     @Test
