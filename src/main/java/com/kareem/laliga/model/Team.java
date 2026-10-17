@@ -14,6 +14,10 @@ public class Team{
     public Team(String name) {
         this.name = name;
     }
+    public Team(String name, Long providerTeamId) {
+        this.name = name;
+        this.providerTeamId = providerTeamId;
+    }
 
     public Long getId() {
         return id;
