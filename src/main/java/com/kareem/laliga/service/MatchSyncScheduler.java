@@ -18,9 +18,17 @@ public class MatchSyncScheduler {
         this.matchSyncService = matchSyncService;
         this.season = season;
     }
-    @Scheduled(initialDelay = 10_000, fixedDelayString = "${laliga.sync.interval:PT24H}")
-    public void syncMatches(){
-      SyncSummary summary=  matchSyncService.syncMatches(season);
-      log.info(String.valueOf(summary));
+    @Scheduled(
+            initialDelay = 10_000,
+            fixedDelayString = "${laliga.sync.interval:PT24H}"
+    )
+    public void syncMatches() {
+        try {
+            SyncSummary summary = matchSyncService.syncMatches(season);
+            log.info("Synchronization completed for season {}: {}", season, summary);
+        } catch (Exception e) {
+            log.error("Synchronization failed for season {}", season, e);
+        }
+
 }
 }
