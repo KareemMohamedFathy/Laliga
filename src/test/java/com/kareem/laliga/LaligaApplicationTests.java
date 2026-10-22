@@ -134,6 +134,18 @@ class LaligaApplicationTests {
         assertEquals(380, jsonNode.get("totalElements").asInt());
 
     }
+    @Test
+    void shouldReturnMatchesNewSeason() {
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity(
+                "/matches?season=2026&page=0&size=5",
+                String.class
+        );
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        JsonNode jsonNode = objectMapper.readTree(responseEntity.getBody());
+        assertEquals(0, jsonNode.get("content").size());
+        assertEquals(0, jsonNode.get("totalElements").asInt());
+
+    }
 
     @Test
     void shouldReturnCorrectRealMadridStats() {
