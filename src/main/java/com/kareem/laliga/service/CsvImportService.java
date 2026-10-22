@@ -27,7 +27,7 @@ public class CsvImportService {
        this.matchRepository=matchRepository;
    }
    public void importMatches() throws IOException {
-       if (matchRepository.count() > 0) {
+       if (matchRepository.existsBySeason(2025)) {
            return;
        }
        ClassPathResource resource =

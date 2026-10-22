@@ -68,4 +68,6 @@ public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSor
     TeamStatsProjection getTeamStats(Long teamId);
 
     public Optional<Match> findMatchByProviderMatchId(Long providerMatchId);
+    public Page<Match> findMatchesBySeason(Integer season, Pageable pageable);
+    public boolean existsBySeason(Integer season);
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
@@ -22,8 +23,11 @@ public class MatchController {
     }
 
     @GetMapping
-    public Page<Match> findAll(Pageable pageable){
-        return matchRepository.findAll(pageable);
+    public Page<Match> findAllBySeason( @RequestParam(required = false) Integer season,Pageable pageable){
+        if (season == null) {
+            return matchRepository.findAll(pageable);
+        }
+        return matchRepository.findMatchesBySeason(season,pageable);
     }
 
     @GetMapping("/{matchId}")
