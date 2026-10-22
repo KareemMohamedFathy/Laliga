@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Optional;
+
 public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSortingRepository<Match,Long> {
     Page<Match> findByHomeTeamIdOrAwayTeamId(Long homeTeamId, Long awayTeamId, Pageable pageable);
 
@@ -64,4 +66,6 @@ public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSor
             """,
             nativeQuery = true)
     TeamStatsProjection getTeamStats(Long teamId);
+
+    public Optional<Match> findMatchByProviderMatchId(Long providerMatchId);
 }

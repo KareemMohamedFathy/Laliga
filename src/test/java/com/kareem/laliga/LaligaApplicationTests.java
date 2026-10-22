@@ -1,5 +1,6 @@
 package com.kareem.laliga;
 
+import com.kareem.laliga.Repository.MatchRepository;
 import com.kareem.laliga.Repository.TeamRepository;
 import com.kareem.laliga.dto.FootballMatchesResponse;
 import com.kareem.laliga.dto.TeamStats;
@@ -37,7 +38,8 @@ class LaligaApplicationTests {
     private TestRestTemplate restTemplate;
     @Autowired
     private TeamRepository teamRepository;
-
+    @Autowired
+    private MatchRepository matchRepository;
     @Autowired
     private ObjectMapper objectMapper;
     @MockitoBean
@@ -59,10 +61,12 @@ class LaligaApplicationTests {
 
     }
 
+
     @Test
     void shouldReturnTeamById() {
-        Team expected = teamRepository.findByName("Barcelona")
+        Team expected = teamRepository.findTeamByProviderTeamId(81L)
                 .orElseThrow();
+
 
         ResponseEntity<Team> response = restTemplate.getForEntity(
                 "/teams/" + expected.getId(),
@@ -173,10 +177,10 @@ class LaligaApplicationTests {
                 )
         );
 
-        when(footballMatchesData.getFootballMatches())
+        when(footballMatchesData.getFootballMatches(2026,"FINISHED"))
                 .thenReturn(new FootballMatchesResponse(List.of(apiMatch)));
 
-        var response = footballMatchesData.getFootballMatches();
+        var response = footballMatchesData.getFootballMatches(2026,"FINISHED");
 
         Match mapped = matchMapper.toMatch(
                 response.matches().getFirst(),

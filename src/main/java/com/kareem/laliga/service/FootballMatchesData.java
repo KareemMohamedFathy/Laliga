@@ -15,10 +15,10 @@ public class FootballMatchesData {
                 .build();
     }
 
-    public FootballMatchesResponse getFootballMatches(){
+    public FootballMatchesResponse getFootballMatches(Integer season,String status){
         return restClient.get()
                 .uri(uriBuilder -> uriBuilder.path("v4/competitions/PD/matches")
-                .queryParam("season", "2026").queryParam("status", "FINISHED").build())
+                .queryParam("season", season).queryParam("status", status).build())
                 .retrieve().body(FootballMatchesResponse.class)
                 ;    }
 
