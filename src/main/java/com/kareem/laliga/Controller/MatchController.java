@@ -4,6 +4,8 @@ import com.kareem.laliga.Repository.MatchRepository;
 import com.kareem.laliga.model.Match;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,10 @@ public class MatchController {
     }
 
     @GetMapping
-    public Page<Match> findAllBySeason( @RequestParam(required = false) Integer season,Pageable pageable){
+    public Page<Match> findAllBySeason( @RequestParam(required = false) Integer season,@PageableDefault(
+    size = 5,sort = {"matchDate", "id"},
+            direction = Sort.Direction.DESC
+    ) Pageable pageable){
         if (season == null) {
             return matchRepository.findAll(pageable);
         }

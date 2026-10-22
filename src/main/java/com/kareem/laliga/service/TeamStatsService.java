@@ -21,13 +21,13 @@ public class TeamStatsService {
         this.matchRepository = matchRepository;
     }
 
-    public TeamStats getStats(long teamId) {
+    public TeamStats getStats(long teamId,Integer season) {
 
         Team team = teamRepository.findById(teamId)
                 .orElseThrow();
 
         TeamStatsProjection stats =
-                matchRepository.getTeamStats(teamId);
+                matchRepository.getTeamStatsBySeason(teamId,season);
 
         return new TeamStats(
                 team.getId(),
