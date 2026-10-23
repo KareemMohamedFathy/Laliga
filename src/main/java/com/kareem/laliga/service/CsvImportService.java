@@ -9,6 +9,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,6 +27,8 @@ public class CsvImportService {
        this.teamRepository=teamRepository;
        this.matchRepository=matchRepository;
    }
+
+    @Transactional(rollbackFor =Exception.class)
    public void importMatches() throws IOException {
        if (matchRepository.existsBySeason(2025)) {
            return;

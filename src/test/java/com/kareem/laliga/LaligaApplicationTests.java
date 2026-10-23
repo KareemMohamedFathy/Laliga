@@ -6,6 +6,7 @@ import com.kareem.laliga.dto.FootballMatchesResponse;
 import com.kareem.laliga.dto.TeamStats;
 import com.kareem.laliga.model.Match;
 import com.kareem.laliga.model.Team;
+import com.kareem.laliga.service.CsvImportService;
 import com.kareem.laliga.service.FootballMatchesData;
 import com.kareem.laliga.service.MatchMapper;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -44,10 +46,15 @@ class LaligaApplicationTests {
     private ObjectMapper objectMapper;
     @MockitoBean
     private FootballMatchesData footballMatchesData;
-
+    @Autowired
+    private CsvImportService  csvImportService;
     @Autowired
     private MatchMapper matchMapper;
-
+    @Test
+    void shouldFullyReadCsv() throws IOException {
+        csvImportService.importMatches();
+        assertEquals(380, matchRepository.countBySeason(2025));
+    }
     @Test
     void shouldReturnTeams() {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(

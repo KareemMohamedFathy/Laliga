@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSortingRepository<Match,Long> {
     @Query("""
     SELECT m FROM Match m
+      JOIN  FETCH m.homeTeam
+      JOIN  FETCH m.awayTeam
     WHERE (m.homeTeam.id = :teamId OR m.awayTeam.id = :teamId)
       AND (:season IS NULL OR m.season = :season)
     """)
@@ -79,4 +81,5 @@ public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSor
     public Optional<Match> findMatchByProviderMatchId(Long providerMatchId);
     public Page<Match> findMatchesBySeason(Integer season, Pageable pageable);
     public boolean existsBySeason(Integer season);
+    public Long countBySeason(Integer season);
 }
