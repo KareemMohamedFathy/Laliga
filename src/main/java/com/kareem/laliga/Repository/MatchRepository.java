@@ -80,6 +80,7 @@ public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSor
     TeamStatsProjection getTeamStatsBySeason(Long teamId,Integer season);
 
     public Optional<Match> findMatchByProviderMatchId(Long providerMatchId);
+    @EntityGraph(attributePaths = {"homeTeam", "awayTeam"})
     public Page<Match> findMatchesBySeason(Integer season, Pageable pageable);
     public boolean existsBySeason(Integer season);
     public Long countBySeason(Integer season);
