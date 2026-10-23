@@ -5,6 +5,7 @@ import com.kareem.laliga.model.Match;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class MatchController {
     public MatchController(MatchRepository matchRepository) {
         this.matchRepository = matchRepository;
     }
-
+    @EntityGraph(attributePaths = {"homeTeam", "awayTeam"})
     @GetMapping
     public Page<Match> findAllBySeason( @RequestParam(required = false) Integer season,@PageableDefault(
     size = 5,sort = {"matchDate", "id"},

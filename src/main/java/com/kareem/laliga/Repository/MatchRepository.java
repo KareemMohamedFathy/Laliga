@@ -4,6 +4,7 @@ import com.kareem.laliga.dto.TeamStatsProjection;
 import com.kareem.laliga.model.Match;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -82,4 +83,7 @@ public interface MatchRepository extends JpaRepository<Match,Long>, PagingAndSor
     public Page<Match> findMatchesBySeason(Integer season, Pageable pageable);
     public boolean existsBySeason(Integer season);
     public Long countBySeason(Integer season);
+    @Override
+    @EntityGraph(attributePaths = {"homeTeam", "awayTeam"})
+    Page<Match> findAll(Pageable pageable);
 }
