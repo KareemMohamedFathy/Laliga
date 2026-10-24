@@ -51,6 +51,28 @@ class LaligaApplicationTests {
     @Autowired
     private MatchMapper matchMapper;
     @Test
+
+    void paginationShouldWork() {
+        Team barcelona = teamRepository
+                .findByName("Barcelona")
+                .orElseThrow();
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("/teams/" + barcelona.getId() + "/matches?season=2025&page=0&size=5"
+                , String.class);
+    JsonNode json = objectMapper.readTree(responseEntity.getBody());
+    assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        JsonNode content = json.get("content");
+
+        assertEquals(5, json.get("content").size());
+        assertEquals(38, json.get("totalElements").asInt());
+        assertEquals(8, json.get("totalPages").asInt());
+        for(int i = 0; i < json.get("content").size()-1; i++){
+          LocalDate date1=  LocalDate.parse(content.get(i).get("matchDate").asString());
+            LocalDate date2=  LocalDate.parse(content.get(i+1).get("matchDate").asString());
+           assertTrue(date1.compareTo(date2) >=0);
+        }
+
+    }
+    @Test
     void shouldFullyReadCsv() throws IOException {
         csvImportService.importMatches();
         assertEquals(380, matchRepository.countBySeason(2025));
