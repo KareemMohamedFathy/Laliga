@@ -4,6 +4,7 @@ package com.kareem.laliga;
 import com.kareem.laliga.Repository.MatchRepository;
 import com.kareem.laliga.Repository.TeamRepository;
 import com.kareem.laliga.dto.FootballMatchesResponse;
+import com.kareem.laliga.dto.TeamStatsProjection;
 import com.kareem.laliga.model.Match;
 import com.kareem.laliga.model.Team;
 import com.kareem.laliga.service.FootballMatchesData;
@@ -293,6 +294,30 @@ class MatchServiceTest {
         assertTrue(
                 teamRepository.findTeamByProviderTeamId(9999L).isEmpty()
         );
+    }
+    @Test
+    void shouldReturnTeamStats(){
+        Team barcelona = teamRepository
+                .findTeamByProviderTeamId(81L)
+                .orElseThrow();
+
+        Long teamId = barcelona.getId();
+        FootballMatchesResponse.FootballMatch validMatch =
+                createApiMatch(2, "FINISHED");
+        when(footballMatchesData.getFootballMatches(2026, "FINISHED"))
+                .thenReturn(new FootballMatchesResponse(
+                        List.of(validMatch)
+                ));
+        SyncSummary summary = matchSyncService.syncMatches(2026);
+        assertEquals(1, summary.inserted());
+        TeamStatsProjection teamStatsProjection=matchRepository.getTeamStatsBySeason(teamId,2026);
+        assertEquals(1,teamStatsProjection.getPlayed());
+        assertEquals(2, teamStatsProjection.getGoalsFor());
+        assertEquals(1, teamStatsProjection.getGoalsAgainst());
+        TeamStatsProjection teamStatsProjection2=matchRepository.getTeamStatsBySeason(teamId,2025);
+        assertEquals(38,teamStatsProjection2.getPlayed());
+        assertEquals(31, teamStatsProjection2.getWins());
+        assertEquals(36, teamStatsProjection2.getGoalsAgainst());
     }
 
     // Reusable fictional API match with configurable goals and status

@@ -217,4 +217,5 @@ class LaligaApplicationTests {
         assertEquals(LocalDate.of(2026, 10, 18), mapped.getMatchDate());
         assertEquals(LocalTime.of(0, 30), mapped.getMatchTime());
     }
+
 }
